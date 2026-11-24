@@ -36,7 +36,9 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 3
 
-        return scheme_apply(scheme_eval(first, env), rest, env)
+        procedure = scheme_eval(first, env)
+        args = map_link(lambda operand: scheme_eval(operand, env), rest)
+        return scheme_apply(procedure, args, env)
 
         # END PROBLEM 3
 
