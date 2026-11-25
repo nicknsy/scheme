@@ -46,15 +46,11 @@ def do_define_form(expressions, env):
         # defining a named procedure e.g. (define (f x y) (+ x y))
         # BEGIN PROBLEM 10
 
-        if scheme_symbolp(first): 
-            name = first 
-            value = scheme_eval(expressions.first, env) 
-        else: 
-            name = first.first 
-            value = do_lambda_form(first.rest, expressions, env) 
-
-    env.define(name, value) 
-    return name 
+        name = signature.first
+        formals = signature.rest
+        body = expressions.rest
+        env.define(name, do_lambda_form(Link(formals, body), env)) 
+        return name 
         
         # END PROBLEM 10
     else:
