@@ -45,7 +45,17 @@ def do_define_form(expressions, env):
     elif isinstance(signature, Link) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
         # BEGIN PROBLEM 10
-        "*** YOUR CODE HERE ***"
+
+        if scheme_symbolp(first): 
+            name = first 
+            value = scheme_eval(expressions.first, env) 
+        else: 
+            name = first.first 
+            value = do_lambda_form(first.rest, expressions, env) 
+
+    env.define(name, value) 
+    return name 
+        
         # END PROBLEM 10
     else:
         bad_signature = signature.first if isinstance(signature, Link) else signature
